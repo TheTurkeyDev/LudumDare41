@@ -1,6 +1,7 @@
 package com.theprogrammingturkey.ld41.rendering;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -30,4 +31,10 @@ public class Renderer {
 		return new Sprite(spriteSheet, x, y, w, h);
 	}
 
+	public static Animation<TextureRegion> createAnimation() {
+		Animation<TextureRegion> animation = new Animation<TextureRegion>(1,createTextureRegion(1,1,100,100));
+		
+		return animation;
+	}
+	
 }

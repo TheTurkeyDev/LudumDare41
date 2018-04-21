@@ -17,11 +17,8 @@ public class RenderObject {
 	private boolean animated = false;
 
 	public RenderObject() {
+		sprite = new Sprite();
 		animations = new HashMap<String, Animation<TextureRegion>>();
-	}
-
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
 	}
 
 	public void addAnimation(String name, Animation<TextureRegion> animation,
@@ -43,7 +40,13 @@ public class RenderObject {
 			animation = animations.get(name);
 			if (animation.getKeyFrames().length <= 1) {
 				animated = false;
+			} else {
+				animated = true;
 			}
+			sprite.setRegion(animation.getKeyFrames()[0]);
+			sprite.setBounds(sprite.getRegionX(), sprite.getRegionY(),
+					sprite.getRegionWidth(), sprite.getRegionHeight());
+
 			animationTime = 0;
 		}
 	}
@@ -63,7 +66,11 @@ public class RenderObject {
 			Renderer.drawSprite(sprite);
 		}
 	}
-	
+
+	public void setSprite(Sprite sprite) {
+		this.sprite = sprite;
+	}
+
 	public Sprite getSprite() {
 		return sprite;
 	}
