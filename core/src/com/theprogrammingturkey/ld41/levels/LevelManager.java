@@ -9,23 +9,21 @@ public class LevelManager {
 
 	/**
 	 * Register a level
-	 * 
-	 * @param id
-	 *            of the level
-	 * @param level
-	 *            to store
+	 *
+	 * @param id    of the level
+	 * @param level to store
 	 */
 	public static void registerLevel(String id, Level level) {
 		levels.put(id, level);
 	}
-	
+
 	public static void setCurrentLevel(String id) {
 		currentLevel = id;
 	}
-	
+
 	/**
 	 * Get the current active level
-	 * 
+	 *
 	 * @return Level
 	 */
 	public static Level getCurrentLevel() {
@@ -34,7 +32,7 @@ public class LevelManager {
 
 	/**
 	 * Get the level with the given ID
-	 * 
+	 *
 	 * @param id
 	 * @return Level
 	 */

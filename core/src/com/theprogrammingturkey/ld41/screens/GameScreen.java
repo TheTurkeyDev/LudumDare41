@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Array;
 import com.theprogrammingturkey.ld41.levels.Layer;
 import com.theprogrammingturkey.ld41.levels.Level;
+import com.theprogrammingturkey.ld41.levels.LevelManager;
 import com.theprogrammingturkey.ld41.rendering.Renderable;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 import com.theprogrammingturkey.ld41.rendering.models.AnimatedSpriteModel;
@@ -29,14 +30,7 @@ public class GameScreen implements Screen {
 	public GameScreen() {
 		buffer = new ArrayList<>();
 		initGuy();
-
-		Level level = new Level();
-		level.addLayer(new Layer(20, 10));
-		level.addLayer(new Layer(20, 10));
-		level.addLayer(new Layer(20, 10));
-		level.addLayer(new Layer(20, 10));
-		level.addLayer(new Layer(20, 10));
-		//LevelManager.registerLevel(0, level);
+		initLevels();
 	}
 
 	@Override
@@ -57,7 +51,6 @@ public class GameScreen implements Screen {
 
 	}
 
-	// to be replaced with intiPlayer
 	private void initGuy() {
 		Array<SpriteModel> sprites = new Array<>(true, 4);
 
@@ -77,6 +70,16 @@ public class GameScreen implements Screen {
 		animation.setPlayMode(Animation.PlayMode.LOOP);
 
 		guySpriteModel = new AnimatedSpriteModel(animation);
+	}
+
+	private void initLevels() {
+		Level level = new Level();
+		level.addLayer(new Layer(20, 10));
+		level.addLayer(new Layer(20, 10));
+		level.addLayer(new Layer(20, 10));
+		level.addLayer(new Layer(20, 10));
+		level.addLayer(new Layer(20, 10));
+		LevelManager.registerLevel("0", level);
 	}
 
 	@Override
