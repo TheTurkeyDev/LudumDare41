@@ -17,7 +17,7 @@ public class Tile {
 	}
 
 	public static enum TileType {
-		AIR(0), GROUND(1);
+		AIR(0), GROUND(1), GROUND_GRASS(2);
 
 		int id;
 
