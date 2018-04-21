@@ -1,25 +1,35 @@
 package com.theprogrammingturkey.ld41.levels;
 
-import com.theprogrammingturkey.ld41.levels.Tile.TileType;
-
 public class Layer {
 	private Tile[][] tiles;
+	private int width, height;
 
 	public Layer(int width, int height) {
+		this.width = width;
+		this.height = height;
 		tiles = new Tile[width][height];
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				if (y > 3) {
-					tiles[x][y] = new Tile(TileType.AIR);
+				if (Math.random() < .5) {
+					tiles[x][y] = new AirTile();
 				} else {
-					tiles[x][y] = new Tile(TileType.GROUND);
+					tiles[x][y] = new GroundTile();
 				}
+				tiles[x][y].getRenderObject().getSprite().setPosition(x*16, y*16);
+			}
+		}
+	}
+	
+	public void draw(float delta) {
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				tiles[x][y].draw(delta);
 			}
 		}
 	}
 
-	public void setTile(TileType type, int x, int y) {
-		tiles[x][y] = new Tile(type);
+	public void setTile(Tile tile, int x, int y) {
+		tiles[x][y] = tile;
 	}
 
 	public Tile getTile(int x, int y) {

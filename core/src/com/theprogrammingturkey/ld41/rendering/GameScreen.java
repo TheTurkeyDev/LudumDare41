@@ -2,22 +2,27 @@ package com.theprogrammingturkey.ld41.rendering;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.theprogrammingturkey.ld41.levels.Layer;
+import com.theprogrammingturkey.ld41.levels.Level;
 
 public class GameScreen implements Screen {
 
 	RenderObject testSprite;
+	Level level1;
 
 	@Override
 	public void show() {
+		Renderer.init();
+		
+		level1 = new Level();
+		level1.addLayer(new Layer(20,15));
+		
 		testSprite = new RenderObject();
 		testSprite.addAnimation("idle", Renderer.createAnimation(.1f,new int[] {0,0,16,16,16,0,16,16,0,0,16,16,32,0,16,16}), false);
 		testSprite.setAnimation("idle");
 		
 		testSprite.getSprite().setX(100);
 		testSprite.getSprite().setY(100);
-		testSprite.getSprite().setScale(10);
 	}
 
 	@Override
@@ -29,6 +34,8 @@ public class GameScreen implements Screen {
 
 		Renderer.startBatch();
 
+		level1.draw(delta);
+		
 		testSprite.draw(delta);
 
 		Renderer.endBatch();

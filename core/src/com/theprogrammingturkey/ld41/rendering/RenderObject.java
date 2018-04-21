@@ -27,6 +27,9 @@ public class RenderObject {
 		if ((alreadyContainsAnimation && replace)
 				|| !alreadyContainsAnimation) {
 			animations.put(name, animation);
+			if(animations.size() == 1) {
+				setAnimation(name);
+			}
 		}
 	}
 
@@ -63,7 +66,7 @@ public class RenderObject {
 			sprite.setRegion(animation.getKeyFrame(animationTime));
 		}
 
-		if (sprite != null) {
+		if (sprite != null && sprite.getTexture() != null) {
 			Renderer.drawSprite(sprite);
 		}
 	}

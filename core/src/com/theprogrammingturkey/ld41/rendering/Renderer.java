@@ -1,18 +1,27 @@
 package com.theprogrammingturkey.ld41.rendering;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 public class Renderer {
 
 	private static SpriteBatch batch = new SpriteBatch();
+	private static OrthographicCamera cam = new OrthographicCamera();
 	private static Texture spriteSheet = new Texture("guys.png");
+	
+	public static void init() {
+		cam.setToOrtho(false, 320, 240);
+		cam.position.set(cam.viewportWidth/2, cam.viewportHeight/2, 0);
+		cam.update();
+	}
 
 	public static void startBatch() {
+		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
 	}
 
@@ -44,12 +53,13 @@ public class Renderer {
 
 		TextureRegion[] frames = new TextureRegion[numOfFrames];
 		for (int i = 0; i < numOfFrames; i++) {
-			frames[i] = createTextureRegion(textureRegionData[(i*4)],
-					textureRegionData[(i*4) + 1], textureRegionData[(i*4) + 2],
-					textureRegionData[(i*4) + 3]);
+			frames[i] = createTextureRegion(textureRegionData[(i * 4)],
+					textureRegionData[(i * 4) + 1],
+					textureRegionData[(i * 4) + 2],
+					textureRegionData[(i * 4) + 3]);
 		}
-		Animation<TextureRegion> animation = new Animation<TextureRegion>(animTime,
-				frames);
+		Animation<TextureRegion> animation = new Animation<TextureRegion>(
+				animTime, frames);
 		animation.setPlayMode(PlayMode.LOOP);
 
 		return animation;

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Level {
 	private List<Layer> layers = new ArrayList<Layer>();
+	private int currentLayer = 0;
 
 	/**
 	 * Adds a layer to the level
@@ -16,6 +17,14 @@ public class Level {
 	public int addLayer(Layer layer) {
 		layers.add(layer);
 		return layers.size() - 1;
+	}
+	
+	public void setCurrentLayer(int layer) {
+		this.currentLayer = layer;
+	}
+	
+	public void draw(float delta) {
+		layers.get(currentLayer).draw(delta);
 	}
 
 	/**
