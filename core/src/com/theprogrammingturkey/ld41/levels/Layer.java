@@ -14,8 +14,10 @@ public class Layer {
 		tiles = new Tile[width][height];
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				if (y > 3) {
+				if (y > 2) {
 					tiles[x][y] = new Tile(TileType.AIR);
+				} else if (y == 3) {
+					tiles[x][y] = new Tile(TileType.GROUND_GRASS);
 				} else {
 					tiles[x][y] = new Tile(TileType.GROUND);
 				}
