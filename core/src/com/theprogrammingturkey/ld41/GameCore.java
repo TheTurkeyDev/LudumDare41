@@ -3,7 +3,6 @@ package com.theprogrammingturkey.ld41;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
-import com.theprogrammingturkey.ld41.screens.MainScreen;
 import com.theprogrammingturkey.ld41.screens.TestScreen;
 import com.theprogrammingturkey.volatiliajava.task.Scheduler;
 

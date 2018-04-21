@@ -20,6 +20,7 @@ public class Renderer {
 
 		cam.setToOrtho(false, 320, 240);
 		cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
+
 		cam.update();
 	}
 
