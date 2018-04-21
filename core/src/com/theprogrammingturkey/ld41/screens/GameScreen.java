@@ -12,6 +12,7 @@ import com.theprogrammingturkey.ld41.levels.Level;
 import com.theprogrammingturkey.ld41.rendering.Renderable;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 import com.theprogrammingturkey.ld41.rendering.models.AnimatedSpriteModel;
+import com.theprogrammingturkey.ld41.rendering.models.SpriteModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class GameScreen implements Screen {
 
 	// to be replaced with intiPlayer
 	private void initGuy() {
-		Array<Sprite> sprites = new Array<>(true, 4);
+		Array<SpriteModel> sprites = new Array<>(true, 4);
 
 		int x = 0;
 		final int y = 0;
@@ -69,9 +70,10 @@ public class GameScreen implements Screen {
 			sprite.setX(100);
 			sprite.setY(100);
 			sprite.scale(5);
-			sprites.add(sprite);
+			SpriteModel spriteModel = new SpriteModel(sprite);
+			sprites.add(spriteModel);
 		}
-		Animation<Sprite> animation = new Animation<>(0.1f, sprites);
+		Animation<SpriteModel> animation = new Animation<>(0.1f, sprites);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
 
 		guySpriteModel = new AnimatedSpriteModel(animation);
