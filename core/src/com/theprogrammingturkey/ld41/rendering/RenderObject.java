@@ -44,8 +44,9 @@ public class RenderObject {
 				animated = true;
 			}
 			sprite.setRegion(animation.getKeyFrames()[0]);
-			sprite.setBounds(sprite.getRegionX(), sprite.getRegionY(),
+			sprite.setBounds(sprite.getX(), sprite.getY(),
 					sprite.getRegionWidth(), sprite.getRegionHeight());
+			sprite.setOrigin(sprite.getWidth()/2.0f, sprite.getHeight()/2.0f);
 
 			animationTime = 0;
 		}

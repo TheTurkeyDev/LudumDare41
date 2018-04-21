@@ -12,14 +12,20 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		testSprite = new RenderObject();
-		testSprite.addAnimation("idle", Renderer.createAnimation(), false);
+		testSprite.addAnimation("idle", Renderer.createAnimation(.1f,new int[] {0,0,16,16,16,0,16,16,0,0,16,16,32,0,16,16}), false);
 		testSprite.setAnimation("idle");
+		
+		testSprite.getSprite().setX(100);
+		testSprite.getSprite().setY(100);
+		testSprite.getSprite().setScale(10);
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 0, 1, 1);
 		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
+		
+		testSprite.getSprite().rotate(1);
 
 		Renderer.startBatch();
 
