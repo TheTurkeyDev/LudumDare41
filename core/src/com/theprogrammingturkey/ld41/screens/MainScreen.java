@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 
 public class MainScreen implements Screen {
+
 	private TextButton start;
 	private Stage stage;
 

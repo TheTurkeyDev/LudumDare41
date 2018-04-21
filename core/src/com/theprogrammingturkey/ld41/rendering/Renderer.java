@@ -1,47 +1,45 @@
 package com.theprogrammingturkey.ld41.rendering;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 public class Renderer {
 
-	private static Texture spriteSheet = new Texture("guys.png");
+	private static SpriteBatch batch;
+	private static OrthographicCamera cam;
 
-	public static TextureRegion createTextureRegion(int x, int y, int w,
-													int h) {
-		return new TextureRegion(spriteSheet, x, y, w, h);
+	public static void init() {
+		batch = new SpriteBatch();
+		cam = new OrthographicCamera();
+
+		cam.setToOrtho(false, 320, 240);
+		cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
+		cam.update();
 	}
 
-	public static Sprite createSprite(int x, int y, int w, int h) {
-		return new Sprite(spriteSheet, x, y, w, h);
+	public static void begin() {
+		batch.setProjectionMatrix(cam.combined);
+		batch.begin();
 	}
 
-	public static Animation<TextureRegion> createAnimation(float animTime,
-														   int[] textureRegionData) {
-		int numOfFrames = textureRegionData.length / 4;
-
-		if (numOfFrames == 0) {
-			System.err.println("NO DATA HERE");
-			return null;
+	public static void draw(Renderable renderable, float delta) {
+		if (batch.isDrawing()) {
+			renderable.getSprite(delta).draw(batch);
 		}
+	}
 
-		TextureRegion[] frames = new TextureRegion[numOfFrames];
-		for (int i = 0; i < numOfFrames; i++) {
-			frames[i] = createTextureRegion(textureRegionData[(i * 4)],
-					textureRegionData[(i * 4) + 1],
-					textureRegionData[(i * 4) + 2],
-					textureRegionData[(i * 4) + 3]);
-		}
-		Animation<TextureRegion> animation = new Animation<>(
-				animTime, frames);
-		animation.setPlayMode(PlayMode.LOOP);
+	public static void end() {
+		batch.end();
+	}
 
-		return animation;
+	public static void dispose() {
+		batch.dispose();
 	}
 
 	public static TextButton getCustomButton(String text) {

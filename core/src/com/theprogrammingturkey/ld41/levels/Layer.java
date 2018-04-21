@@ -1,12 +1,13 @@
 package com.theprogrammingturkey.ld41.levels;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.theprogrammingturkey.ld41.entity.Entity;
 import com.theprogrammingturkey.ld41.levels.Tile.TileType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Layer {
+
 	private Tile[][] tiles;
 	private List<Entity> entities = new ArrayList<Entity>();
 
@@ -25,8 +26,16 @@ public class Layer {
 		}
 	}
 
-	public void setTile(TileType type, int x, int y) {
-		tiles[x][y] = new Tile(type);
+	public void draw(float delta) {
+//		for (int y = 0; y < height; y++) {
+//			for (int x = 0; x < width; x++) {
+//				tiles[x][y].draw(delta);
+//			}
+//		}
+	}
+
+	public void setTile(Tile tile, int x, int y) {
+		tiles[x][y] = tile;
 	}
 
 	public Tile getTile(int x, int y) {

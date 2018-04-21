@@ -1,35 +1,31 @@
 package com.theprogrammingturkey.ld41.screens;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.theprogrammingturkey.ld41.levels.Layer;
 import com.theprogrammingturkey.ld41.levels.Level;
-import com.theprogrammingturkey.ld41.levels.LevelManager;
-import com.theprogrammingturkey.ld41.levels.Tile;
 import com.theprogrammingturkey.ld41.rendering.Renderable;
+import com.theprogrammingturkey.ld41.rendering.Renderer;
 import com.theprogrammingturkey.ld41.rendering.models.AnimatedSpriteModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameScreen implements Screen {
 
 	private static final Color SKY_BLUE = Color.valueOf("87CEEB");
 	private static final Texture GUY = new Texture("guys.png");
 
-	private SpriteBatch batch;
 	private List<Renderable> buffer;
 
 	private AnimatedSpriteModel guySpriteModel;
 
 	public GameScreen() {
-		batch = new SpriteBatch();
 		buffer = new ArrayList<>();
 		initGuy();
 
@@ -39,7 +35,7 @@ public class GameScreen implements Screen {
 		level.addLayer(new Layer(20, 10));
 		level.addLayer(new Layer(20, 10));
 		level.addLayer(new Layer(20, 10));
-		LevelManager.registerLevel(0, level);
+		//LevelManager.registerLevel(0, level);
 	}
 
 	@Override
@@ -54,22 +50,10 @@ public class GameScreen implements Screen {
 		buffer.clear();
 		buffer.add(guySpriteModel);
 
-		batch.begin();
 		for (Renderable renderable : buffer) {
-			Sprite sprite = renderable.getSprite(delta);
-			sprite.draw(batch);
+			Renderer.draw(renderable, delta);
 		}
 
-		Layer layer = LevelManager.getLevel(0).getLayer(0);
-		Tile t;
-		for (int y = 0; y < 10; y++) {
-			for (int x = 0; x < 20; x++) {
-				t = layer.getTile(x, y);
-				batch.draw(t.getTileType().getTexture(), (x * 20) + 10,
-						(y * 20) + 50, 20, 20);
-			}
-		}
-		batch.end();
 	}
 
 	// to be replaced with intiPlayer
@@ -115,7 +99,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
+
 	}
 
 }

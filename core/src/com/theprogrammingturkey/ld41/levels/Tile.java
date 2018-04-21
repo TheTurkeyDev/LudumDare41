@@ -11,7 +11,7 @@ public class Tile {
 
 	/**
 	 * Get the Type of the tile
-	 * 
+	 *
 	 * @return TileType type
 	 */
 	public TileType getTileType() {
@@ -28,7 +28,7 @@ public class Tile {
 		TileType(int id, String name) {
 			this.id = id;
 			this.name = name;
-			this.texture = new Texture("tiles/" + name + ".png");
+			this.texture = new Texture(name + ".png");
 		}
 
 		public int getID() {
