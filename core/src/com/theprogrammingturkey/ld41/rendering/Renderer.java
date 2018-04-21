@@ -26,8 +26,8 @@ public class Renderer {
 		sprite.draw(batch);
 	}
 
-	public static Sprite createSprite() {
-		return new Sprite(spriteSheet, 1, 1, 100, 100);
+	public static Sprite createSprite(int x, int y, int w, int h) {
+		return new Sprite(spriteSheet, x, y, w, h);
 	}
 
 }
