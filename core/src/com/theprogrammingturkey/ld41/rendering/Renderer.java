@@ -15,7 +15,7 @@ public class Renderer {
 	private static Texture spriteSheet = new Texture("guys.png");
 	
 	public static void init() {
-		cam.setToOrtho(false, 320, 240);
+		cam.setToOrtho(false, 160, 120);
 		cam.position.set(cam.viewportWidth/2, cam.viewportHeight/2, 0);
 		cam.update();
 	}
