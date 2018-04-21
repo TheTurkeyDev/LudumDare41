@@ -1,5 +1,7 @@
 package com.theprogrammingturkey.ld41.levels;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Tile {
 	private TileType type;
 
@@ -17,16 +19,24 @@ public class Tile {
 	}
 
 	public static enum TileType {
-		AIR(0), GROUND(1), GROUND_GRASS(2);
+		AIR(0, "Air"), GROUND(1, "GroundDirt"), GROUND_GRASS(2, "GroundGrass");
 
-		int id;
+		private int id;
+		private String name;
+		private Texture texture;
 
-		TileType(int id) {
+		TileType(int id, String name) {
 			this.id = id;
+			this.name = name;
+			this.texture = new Texture(name + ".png");
 		}
 
 		public int getID() {
 			return this.id;
+		}
+
+		public Texture getTexture() {
+			return this.texture;
 		}
 	}
 }
