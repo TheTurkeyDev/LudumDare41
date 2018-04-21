@@ -1,0 +1,26 @@
+ButtonPack.png
+size: 250, 225
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ButtonChecked
+  rotate: false
+  xy: 0, 0
+  size: 250, 75
+  orig: 250, 75
+  offset: 0, 0
+  index: -1
+ButtonNormal
+  rotate: false
+  xy: 0, 75
+  size: 250, 75
+  orig: 250, 75
+  offset: 0, 0
+  index: -1
+ButtonSelected
+  rotate: false
+  xy: 0, 150
+  size: 250, 75
+  orig: 250, 75
+  offset: 0, 0
+  index: -1

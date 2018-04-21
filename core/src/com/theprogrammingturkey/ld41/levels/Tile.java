@@ -1,37 +1,42 @@
 package com.theprogrammingturkey.ld41.levels;
 
-import com.theprogrammingturkey.ld41.rendering.RenderObject;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Tile {
-	private RenderObject renderObject;
+	private TileType type;
 
-	public Tile() {
+	public Tile(TileType type) {
+		this.type = type;
+	}
 
-	}
-	
-	public void draw(float delta) {
-		this.renderObject.draw(delta);
-	}
-	
-	public RenderObject getRenderObject() {
-		return renderObject;
-	}
-	
-	public void setRenderObject(RenderObject renderObject) {
-		this.renderObject = renderObject;
+	/**
+	 * Get the Type of the tile
+	 *
+	 * @return TileType type
+	 */
+	public TileType getTileType() {
+		return this.type;
 	}
 
 	public static enum TileType {
-		AIR(0), GROUND(1);
+		AIR(0, "Air"), GROUND(1, "GroundDirt"), GROUND_GRASS(2, "GroundGrass");
 
-		int id;
+		private int id;
+		private String name;
+		private Texture texture;
 
-		TileType(int id) {
+		TileType(int id, String name) {
 			this.id = id;
+			this.name = name;
+			this.texture = new Texture("tiles/"+name + ".png");
 		}
 
 		public int getID() {
 			return this.id;
+		}
+
+		public Texture getTexture() {
+			return this.texture;
 		}
 	}
 }
