@@ -6,7 +6,7 @@ import com.theprogrammingturkey.ld41.levels.Layer;
 import com.theprogrammingturkey.ld41.levels.Level;
 import com.theprogrammingturkey.ld41.levels.LevelManager;
 
-public class GameScreen implements Screen {
+public class TestScreen implements Screen {
 
 	RenderObject testSprite;
 	Level level1;
@@ -14,16 +14,20 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		Renderer.init();
-		
+
 		level1 = new Level();
-		level1.addLayer(new Layer(20,15));
+		level1.addLayer(new Layer(20, 15));
 		LevelManager.registerLevel("Random", level1);
 		LevelManager.setCurrentLevel("Random");
-		
+
 		testSprite = new RenderObject();
-		testSprite.addAnimation("idle", Renderer.createAnimation(.1f,new int[] {0,0,16,16,16,0,16,16,0,0,16,16,32,0,16,16}), false);
+		testSprite
+				.addAnimation("idle",
+						Renderer.createAnimation(.1f, new int[]{0, 0, 16, 16,
+								16, 0, 16, 16, 0, 0, 16, 16, 32, 0, 16, 16}),
+						false);
 		testSprite.setAnimation("idle");
-		
+
 		testSprite.getSprite().setX(100);
 		testSprite.getSprite().setY(100);
 	}
@@ -32,13 +36,13 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(1, 0, 1, 1);
 		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
-		
+
 		testSprite.getSprite().rotate(1);
 
 		Renderer.startBatch();
 
 		LevelManager.getCurrentLevel().draw(delta);
-		
+
 		testSprite.draw(delta);
 
 		Renderer.endBatch();
