@@ -17,13 +17,13 @@ public class Renderer {
 	public static void endBatch() {
 		batch.end();
 	}
-
-	public static TextureRegion createTextureRegion(int x, int y, int w, int h) {
-		return new TextureRegion(spriteSheet, 0, 0, 0, 0);
-	}
-
+	
 	public static void drawSprite(Sprite sprite) {
 		sprite.draw(batch);
+	}
+	
+	public static TextureRegion createTextureRegion(int x, int y, int w, int h) {
+		return new TextureRegion(spriteSheet, x, y, w, h);
 	}
 
 	public static Sprite createSprite(int x, int y, int w, int h) {

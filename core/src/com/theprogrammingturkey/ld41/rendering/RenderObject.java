@@ -4,26 +4,27 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class RenderObject {
 
-	private HashMap<String, Animation<Sprite>> animations;
+	private HashMap<String, Animation<TextureRegion>> animations;
 
 	private Sprite sprite;
-	private Animation<Sprite> animation;
+	private Animation<TextureRegion> animation;
 
 	private float animationTime = 0;
 	private boolean animated = false;
 
 	public RenderObject() {
-		animations = new HashMap<String, Animation<Sprite>>();
+		animations = new HashMap<String, Animation<TextureRegion>>();
 	}
 
 	public void setSprite(Sprite sprite) {
 		this.sprite = sprite;
 	}
 
-	public void addAnimation(String name, Animation<Sprite> animation,
+	public void addAnimation(String name, Animation<TextureRegion> animation,
 			boolean replace) {
 		boolean alreadyContainsAnimation = animations.containsKey(name);
 		if ((alreadyContainsAnimation && replace)
@@ -32,6 +33,11 @@ public class RenderObject {
 		}
 	}
 
+	/***
+	 * Set the current animation for the sprite
+	 * 
+	 * @param name
+	 */
 	public void setAnimation(String name) {
 		if (animations.containsKey(name)) {
 			animation = animations.get(name);
@@ -42,15 +48,24 @@ public class RenderObject {
 		}
 	}
 
+	/***
+	 * Update the animation and draw the sprite
+	 * 
+	 * @param delta
+	 */
 	public void draw(float delta) {
-		if (animated) {
+		if (animated && animation != null) {
 			animationTime += delta;
-			sprite = animation.getKeyFrame(animationTime);
+			sprite.setRegion(animation.getKeyFrame(animationTime));
 		}
 
 		if (sprite != null) {
 			Renderer.drawSprite(sprite);
 		}
+	}
+	
+	public Sprite getSprite() {
+		return sprite;
 	}
 
 }
