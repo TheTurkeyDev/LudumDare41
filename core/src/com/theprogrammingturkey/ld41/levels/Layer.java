@@ -3,7 +3,7 @@ package com.theprogrammingturkey.ld41.levels;
 import com.theprogrammingturkey.ld41.levels.Tile.TileType;
 
 public class Layer {
-	Tile[][] tiles;
+	private Tile[][] tiles;
 
 	public Layer(int width, int height) {
 		tiles = new Tile[width][height];
@@ -16,5 +16,13 @@ public class Layer {
 				}
 			}
 		}
+	}
+
+	public void setTile(TileType type, int x, int y) {
+		tiles[x][y] = new Tile(type);
+	}
+
+	public Tile getTile(int x, int y) {
+		return tiles[x][y];
 	}
 }
