@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.theprogrammingturkey.ld41.rendering.GameScreen;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 
 public class MainScreen implements Screen {
@@ -36,6 +35,7 @@ public class MainScreen implements Screen {
 		table.add(start);
 		table.row();
 	}
+
 	@Override
 	public void show() {
 

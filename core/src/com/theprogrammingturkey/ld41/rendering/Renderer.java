@@ -2,36 +2,18 @@ package com.theprogrammingturkey.ld41.rendering;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 public class Renderer {
 
-	private static SpriteBatch batch = new SpriteBatch();
 	private static Texture spriteSheet = new Texture("guys.png");
 
-	public static void startBatch() {
-		batch.begin();
-	}
-
-	public static void endBatch() {
-		batch.end();
-	}
-
-	public static void drawSprite(Sprite sprite) {
-		sprite.draw(batch);
-	}
-
 	public static TextureRegion createTextureRegion(int x, int y, int w,
-			int h) {
+													int h) {
 		return new TextureRegion(spriteSheet, x, y, w, h);
 	}
 
@@ -40,7 +22,7 @@ public class Renderer {
 	}
 
 	public static Animation<TextureRegion> createAnimation(float animTime,
-			int[] textureRegionData) {
+														   int[] textureRegionData) {
 		int numOfFrames = textureRegionData.length / 4;
 
 		if (numOfFrames == 0) {
@@ -55,7 +37,7 @@ public class Renderer {
 					textureRegionData[(i * 4) + 2],
 					textureRegionData[(i * 4) + 3]);
 		}
-		Animation<TextureRegion> animation = new Animation<TextureRegion>(
+		Animation<TextureRegion> animation = new Animation<>(
 				animTime, frames);
 		animation.setPlayMode(PlayMode.LOOP);
 
