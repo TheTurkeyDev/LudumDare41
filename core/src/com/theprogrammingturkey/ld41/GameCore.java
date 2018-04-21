@@ -3,19 +3,19 @@ package com.theprogrammingturkey.ld41;
 import com.badlogic.gdx.ApplicationAdapter;
 
 public class GameCore extends ApplicationAdapter {
-	
+
 	@Override
-	public void create () {
-		
+	public void create() {
+
 	}
 
 	@Override
-	public void render () {
-		
+	public void render() {
+
 	}
-	
+
 	@Override
-	public void dispose () {
-		
+	public void dispose() {
+
 	}
 }
