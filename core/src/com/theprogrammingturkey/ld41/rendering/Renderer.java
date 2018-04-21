@@ -11,11 +11,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 public class Renderer {
 
 	private static SpriteBatch batch = new SpriteBatch();
-	private static Texture spriteSheet = new Texture("badlogic.jpg");
+	private static Texture spriteSheet = new Texture("guys.png");
 
 	public static void startBatch() {
 		batch.begin();
@@ -38,9 +39,25 @@ public class Renderer {
 		return new Sprite(spriteSheet, x, y, w, h);
 	}
 
-	public static Animation<TextureRegion> createAnimation() {
-		Animation<TextureRegion> animation = new Animation<TextureRegion>(1,
-				createTextureRegion(1, 1, 100, 100));
+	public static Animation<TextureRegion> createAnimation(float animTime,
+			int[] textureRegionData) {
+		int numOfFrames = textureRegionData.length / 4;
+
+		if (numOfFrames == 0) {
+			System.err.println("NO DATA HERE");
+			return null;
+		}
+
+		TextureRegion[] frames = new TextureRegion[numOfFrames];
+		for (int i = 0; i < numOfFrames; i++) {
+			frames[i] = createTextureRegion(textureRegionData[(i * 4)],
+					textureRegionData[(i * 4) + 1],
+					textureRegionData[(i * 4) + 2],
+					textureRegionData[(i * 4) + 3]);
+		}
+		Animation<TextureRegion> animation = new Animation<TextureRegion>(
+				animTime, frames);
+		animation.setPlayMode(PlayMode.LOOP);
 
 		return animation;
 	}
@@ -58,5 +75,4 @@ public class Renderer {
 		textButtonStyle.checked = skin.getDrawable("ButtonChecked");
 		return new TextButton(text, textButtonStyle);
 	}
-
 }
