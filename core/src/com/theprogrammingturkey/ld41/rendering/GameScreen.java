@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.theprogrammingturkey.ld41.levels.Layer;
 import com.theprogrammingturkey.ld41.levels.Level;
+import com.theprogrammingturkey.ld41.levels.LevelManager;
 
 public class GameScreen implements Screen {
 
@@ -16,6 +17,8 @@ public class GameScreen implements Screen {
 		
 		level1 = new Level();
 		level1.addLayer(new Layer(20,15));
+		LevelManager.registerLevel("Random", level1);
+		LevelManager.setCurrentLevel("Random");
 		
 		testSprite = new RenderObject();
 		testSprite.addAnimation("idle", Renderer.createAnimation(.1f,new int[] {0,0,16,16,16,0,16,16,0,0,16,16,32,0,16,16}), false);
@@ -34,7 +37,7 @@ public class GameScreen implements Screen {
 
 		Renderer.startBatch();
 
-		level1.draw(delta);
+		LevelManager.getCurrentLevel().draw(delta);
 		
 		testSprite.draw(delta);
 
