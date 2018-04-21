@@ -10,7 +10,7 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void show() {
-		testSprite = Renderer.createSprite();
+		testSprite = Renderer.createSprite(0,0,100,100);
 	}
 
 	@Override
