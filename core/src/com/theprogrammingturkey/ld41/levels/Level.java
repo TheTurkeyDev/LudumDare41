@@ -20,14 +20,14 @@ public class Level {
 		layers.add(layer);
 		return layers.size() - 1;
 	}
-	
+
 	public void setCurrentLayer(int layer) {
 		this.currentLayer = layer;
 	}
-	
-	public void draw(float delta) {
-		layers.get(currentLayer).draw(delta);
-	}
+
+	// public void draw(float delta) {
+	// layers.get(currentLayer).draw(delta);
+	// }
 
 	/**
 	 * Gets the layer at the give index/id

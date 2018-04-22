@@ -6,16 +6,16 @@ import com.theprogrammingturkey.ld41.rendering.Renderable;
 
 public class AnimatedSpriteModel implements Renderable {
 
-	private Animation<SpriteModel> animation;
+	private Animation<Sprite> animation;
 	private float animationTime;
 
-	public AnimatedSpriteModel(Animation<SpriteModel> animation) {
+	public AnimatedSpriteModel(Animation<Sprite> animation) {
 		this.animation = animation;
 	}
 
 	@Override
 	public Sprite getSprite(float delta) {
 		animationTime = (animationTime + delta) % animation.getAnimationDuration();
-		return animation.getKeyFrame(animationTime).getSprite(delta);
+		return animation.getKeyFrame(animationTime);
 	}
 }

@@ -1,6 +1,5 @@
 package com.theprogrammingturkey.ld41.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -11,7 +10,6 @@ import com.theprogrammingturkey.ld41.levels.Level;
 import com.theprogrammingturkey.ld41.levels.LevelManager;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 import com.theprogrammingturkey.ld41.rendering.models.AnimatedSpriteModel;
-import com.theprogrammingturkey.ld41.rendering.models.SpriteModel;
 
 public class TestScreen implements Screen {
 
@@ -33,7 +31,7 @@ public class TestScreen implements Screen {
 	}
 
 	private void initSprite() {
-		Array<SpriteModel> sprites = new Array<>(true, 4);
+		Array<Sprite> sprites = new Array<>(true, 4);
 
 		int x = 0;
 		final int y = 0;
@@ -44,10 +42,9 @@ public class TestScreen implements Screen {
 			sprite.setX(100);
 			sprite.setY(100);
 			sprite.scale(5);
-			SpriteModel spriteModel = new SpriteModel(sprite);
-			sprites.add(spriteModel);
+			sprites.add(sprite);
 		}
-		Animation<SpriteModel> animation = new Animation<>(0.1f, sprites);
+		Animation<Sprite> animation = new Animation<>(0.1f, sprites);
 		animation.setPlayMode(Animation.PlayMode.LOOP);
 
 		testSprite = new AnimatedSpriteModel(animation);
@@ -60,11 +57,7 @@ public class TestScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(1, 0, 1, 1);
-		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
-
 		Renderer.draw(testSprite, delta);
-
 	}
 
 	@Override
