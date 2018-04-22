@@ -38,7 +38,7 @@ public class Player extends Entity {
 			velTemp = velocity.add(0, 3);
 			jumped = true;
 		} else {
-			velTemp = velocity.sub(0, 0.1);
+			velTemp = velocity.sub(0, .5);
 		}
 		Vector2F posTemp = pos.addVector(velTemp);
 

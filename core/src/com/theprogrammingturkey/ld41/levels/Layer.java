@@ -9,6 +9,7 @@ import com.theprogrammingturkey.ld41.levels.tiles.AirTile;
 import com.theprogrammingturkey.ld41.levels.tiles.GrassTile;
 import com.theprogrammingturkey.ld41.levels.tiles.GroundTile;
 import com.theprogrammingturkey.ld41.levels.tiles.Tile;
+import com.theprogrammingturkey.ld41.levels.tiles.TileManager;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 
 public class Layer {
@@ -49,12 +50,18 @@ public class Layer {
 		return tilesToReturn;
 	}
 
-	public void setTile(Tile tile, int x, int y) {
-		tiles[x][y] = tile;
+	public boolean setTile(Tile tile, int x, int y) {
+		if(x >= 0 && x < width && y >= 0 && y < height) {
+			tiles[x][y] = tile;
+			return true;
+		}
+		return false;
 	}
 
 	public Tile getTile(int x, int y) {
-		return tiles[x][y];
+		if(x >= 0 && x < width && y >= 0 && y < height)
+			return tiles[x][y];
+		return null;
 	}
 
 	public void addEntity(Entity ent) {
