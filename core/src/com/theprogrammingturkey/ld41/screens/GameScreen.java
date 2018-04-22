@@ -1,19 +1,15 @@
 package com.theprogrammingturkey.ld41.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.theprogrammingturkey.ld41.entity.Player;
-import com.theprogrammingturkey.ld41.levels.Layer;
-import com.theprogrammingturkey.ld41.levels.Level;
 import com.theprogrammingturkey.ld41.levels.LevelManager;
-import com.theprogrammingturkey.ld41.levels.tiles.Tile;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 
 public class GameScreen implements Screen {
-	private Player player;
+	public static final Player player = new Player();
 
 	public GameScreen() {
-		initLevels();
+		initLevel();
 	}
 
 	@Override
@@ -28,17 +24,9 @@ public class GameScreen implements Screen {
 		LevelManager.getCurrentLevel().render(delta);
 	}
 
-	private void initLevels() {
-		Level level = new Level();
-		level.addLayer(new Layer(50, Gdx.graphics.getHeight() / Tile.HEIGHT));
-		player = new Player(level.getLayer(0), 0, 200);
-		level.getLayer(0).addEntity(player);
-		level.addLayer(new Layer(50, Gdx.graphics.getHeight() / Tile.HEIGHT));
-		level.addLayer(new Layer(50, Gdx.graphics.getHeight() / Tile.HEIGHT));
-		level.addLayer(new Layer(50, Gdx.graphics.getHeight() / Tile.HEIGHT));
-		level.addLayer(new Layer(50, Gdx.graphics.getHeight() / Tile.HEIGHT));
-		LevelManager.registerLevel("0", level);
-		LevelManager.setCurrentLevel("0");
+	private void initLevel() {
+		LevelManager.setCurrentLevel("Tutorial");
+		LevelManager.getCurrentLevel().init();
 	}
 
 	@Override

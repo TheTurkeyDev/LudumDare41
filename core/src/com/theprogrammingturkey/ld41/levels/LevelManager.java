@@ -10,8 +10,10 @@ public class LevelManager {
 	/**
 	 * Register a level
 	 *
-	 * @param id    of the level
-	 * @param level to store
+	 * @param id
+	 *            of the level
+	 * @param level
+	 *            to store
 	 */
 	public static void registerLevel(String id, Level level) {
 		levels.put(id, level);
@@ -38,5 +40,9 @@ public class LevelManager {
 	 */
 	public static Level getLevel(String id) {
 		return levels.get(id);
+	}
+
+	public static int numLevels() {
+		return levels.size();
 	}
 }

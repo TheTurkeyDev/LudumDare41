@@ -61,6 +61,10 @@ public class Layer {
 		this.entities.add(ent);
 	}
 
+	public void removeEntity(Entity ent) {
+		this.entities.remove(ent);
+	}
+
 	public List<Entity> getEntities() {
 		return this.entities;
 	}
@@ -72,11 +76,11 @@ public class Layer {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				Tile t = tiles[x][y];
-				if (transition && !(t instanceof AirTile)) {
-					t.setPosition(x * Tile.WIDTH,
-							(y * Tile.HEIGHT) - this.transitionOffset);
-					Renderer.draw(t, delta);
-				} else if (!transition) {
+				if (!(t instanceof AirTile)) {
+					if (transition) {
+						t.setPosition(x * Tile.WIDTH,
+								(y * Tile.HEIGHT) - this.transitionOffset);
+					}
 					Renderer.draw(t, delta);
 				}
 			}

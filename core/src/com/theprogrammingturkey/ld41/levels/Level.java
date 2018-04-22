@@ -5,14 +5,28 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.theprogrammingturkey.ld41.entity.Entity;
-import com.theprogrammingturkey.ld41.entity.Player;
+import com.theprogrammingturkey.ld41.rendering.Renderer;
+import com.theprogrammingturkey.ld41.screens.GameScreen;
 
 public class Level {
 	private List<Layer> layers = new ArrayList<Layer>();
 	private int currentLayer = 0;
 	private int switchLayer = -1;
 	private boolean on;
+
+	private int playerStartX;
+	private int playerStartY;
+	private int playerStartLayer;
+
+	public void init() {
+		currentLayer = playerStartLayer;
+		this.layers.get(playerStartLayer).addEntity(GameScreen.player);
+		GameScreen.player.setLocation(this.layers.get(playerStartLayer),
+				playerStartX, playerStartY);
+	}
 
 	/**
 	 * Adds a layer to the level
@@ -37,13 +51,17 @@ public class Level {
 			layers.get(switchLayer).transition(false);
 			currentLayer++;
 			on = false;
-			movePlayerToNewLayer(switchLayer, currentLayer);
+			layers.get(switchLayer).removeEntity(GameScreen.player);
+			layers.get(currentLayer).addEntity(GameScreen.player);
+			GameScreen.player.setLayer(layers.get(currentLayer));
 		} else if (Gdx.input.isKeyPressed(Input.Keys.W) && switchLayer == -1
 				&& currentLayer > 0) {
 			switchLayer = currentLayer - 1;
 			layers.get(switchLayer).transition(true);
 			on = true;
-			movePlayerToNewLayer(currentLayer, switchLayer);
+			layers.get(currentLayer).removeEntity(GameScreen.player);
+			layers.get(switchLayer).addEntity(GameScreen.player);
+			GameScreen.player.setLayer(layers.get(switchLayer));
 		}
 
 		for (Layer layer : layers) {
@@ -52,7 +70,11 @@ public class Level {
 	}
 
 	public void render(float delta) {
-		layers.get(currentLayer).render(delta, false);
+		// (currentLayer - i) / layers.size()
+		Renderer.batch.setColor(Color.WHITE);
+		for (int i = layers.size() - 1; i >= currentLayer; i--) {
+			layers.get(i).render(delta, false);
+		}
 		if (switchLayer != -1) {
 			Layer layer = layers.get(switchLayer);
 			layer.render(delta, true);
@@ -62,7 +84,6 @@ public class Level {
 				switchLayer = -1;
 			}
 		}
-
 	}
 
 	/**
@@ -88,18 +109,6 @@ public class Level {
 		this.layers.get(layer).addEntity(entity);
 	}
 
-	public void movePlayerToNewLayer(int o, int n) {
-		Layer oldLayer = layers.get(o);
-		Layer newLayer = layers.get(n);
-		for (int i = oldLayer.getEntities().size() - 1; i >= 0; i--) {
-			Entity ent = oldLayer.getEntities().get(i);
-			if (ent instanceof Player) {
-				oldLayer.getEntities().remove(i);
-				newLayer.addEntity(ent);
-			}
-		}
-	}
-
 	/**
 	 * Gets all entities currently in the level
 	 * 
@@ -122,6 +131,30 @@ public class Level {
 	 */
 	public List<Entity> getEntitiesFromLayer(int layer) {
 		return layers.get(layer).getEntities();
+	}
+
+	public int getPlayerStartX() {
+		return playerStartX;
+	}
+
+	public void setPlayerStartX(int playerStartX) {
+		this.playerStartX = playerStartX;
+	}
+
+	public int getPlayerStartY() {
+		return playerStartY;
+	}
+
+	public void setPlayerStartY(int playerStartY) {
+		this.playerStartY = playerStartY;
+	}
+
+	public int getPlayerStartLayer() {
+		return playerStartLayer;
+	}
+
+	public void setPlayerStartLayer(int playerStartLayer) {
+		this.playerStartLayer = playerStartLayer;
 	}
 
 }

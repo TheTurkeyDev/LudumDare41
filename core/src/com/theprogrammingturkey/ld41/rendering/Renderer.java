@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 public class Renderer {
 
-	private static SpriteBatch batch;
+	public static SpriteBatch batch;
 	private static OrthographicCamera cam;
 
 	public static void init() {

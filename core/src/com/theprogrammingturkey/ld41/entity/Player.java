@@ -11,10 +11,19 @@ import com.theprogrammingturkey.volatiliajava.math.Vector2F;
 public class Player extends Entity {
 	private Sprite sprite;
 	private boolean jumped = false;
-	public Player(Layer layer, int x, int y) {
-		super(layer, x, y);
+	public Player() {
+		super(null, 0, 0);
 		sprite = new Sprite(
 				new Texture(Gdx.files.internal("entities/Player.png")));
+	}
+
+	public void setLocation(Layer layer, int x, int y) {
+		super.layer = layer;
+		super.pos = new Vector2F(x, y);
+	}
+
+	public void setLayer(Layer layer) {
+		super.layer = layer;
 	}
 
 	@Override
