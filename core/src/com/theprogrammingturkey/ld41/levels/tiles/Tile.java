@@ -10,7 +10,11 @@ public class Tile implements Renderable {
 
 	public Tile(int x, int y, Sprite sprite) {
 		this.sprite = sprite;
-		sprite.setBounds(x * WIDTH, y * HEIGHT, WIDTH, HEIGHT);
+		this.setPosition(x * WIDTH, y * HEIGHT);
+	}
+
+	public void setPosition(int x, int y) {
+		sprite.setBounds(x, y, WIDTH, HEIGHT);
 	}
 
 	@Override

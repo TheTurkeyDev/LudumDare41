@@ -63,8 +63,8 @@ public class Player extends Entity {
 
 		if (pos.getX() < 0) {
 			pos.setX(0);
-		} else if (pos.getX() > 300) {
-			pos.setX(300);
+		} else if (pos.getX() > (layer.getWidth() * Tile.WIDTH) - 16) {
+			pos.setX((layer.getWidth() * Tile.WIDTH) - 16);
 		}
 	}
 }

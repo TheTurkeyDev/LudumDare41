@@ -43,6 +43,21 @@ public class Renderer {
 		batch.dispose();
 	}
 
+	public static void updateCameraPosition(int x, int y) {
+		cam.position.set(x, y, 0);
+		cam.update();
+	}
+
+	public static void updateCameraScroll(int x) {
+		cam.position.set(x, cam.position.y, 0);
+		cam.update();
+	}
+
+	public static void resetCameraPosition() {
+		cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
+		cam.update();
+	}
+
 	public static TextButton getCustomButton(String text) {
 		BitmapFont font = new BitmapFont();
 		Skin skin = new Skin();

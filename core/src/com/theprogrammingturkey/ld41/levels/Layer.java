@@ -3,11 +3,13 @@ package com.theprogrammingturkey.ld41.levels;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.theprogrammingturkey.ld41.entity.Entity;
 import com.theprogrammingturkey.ld41.levels.tiles.AirTile;
 import com.theprogrammingturkey.ld41.levels.tiles.GrassTile;
 import com.theprogrammingturkey.ld41.levels.tiles.GroundTile;
 import com.theprogrammingturkey.ld41.levels.tiles.Tile;
+import com.theprogrammingturkey.ld41.rendering.Renderer;
 
 public class Layer {
 
@@ -16,6 +18,9 @@ public class Layer {
 
 	private int width;
 	private int height;
+
+	private int transitionOffset = 0;
+	private boolean transitionOn = true;
 
 	public Layer(int width, int height) {
 		this.width = width;
@@ -34,7 +39,7 @@ public class Layer {
 		}
 	}
 
-	public List<Tile> getTiles(int offset) {
+	public List<Tile> getTiles() {
 		List<Tile> tilesToReturn = new ArrayList<>();
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
@@ -60,6 +65,28 @@ public class Layer {
 		return this.entities;
 	}
 
+	public void render(float delta, boolean transition) {
+		transitionOffset = transitionOn
+				? transitionOffset - 5
+				: transitionOffset + 5;
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				Tile t = tiles[x][y];
+				if (transition && !(t instanceof AirTile)) {
+					t.setPosition(x * Tile.WIDTH,
+							(y * Tile.HEIGHT) - this.transitionOffset);
+					Renderer.draw(t, delta);
+				} else if (!transition) {
+					Renderer.draw(t, delta);
+				}
+			}
+		}
+
+		for (Entity ent : entities) {
+			Renderer.draw(ent, delta);
+		}
+	}
+
 	public void update() {
 		for (int i = entities.size() - 1; i >= 0; i--) {
 			Entity ent = entities.get(i);
@@ -67,5 +94,23 @@ public class Layer {
 			if (!ent.isAlive())
 				entities.remove(i);
 		}
+	}
+
+	public int getWidth() {
+		return this.width;
+	}
+
+	public int getHeight() {
+		return this.height;
+	}
+
+	public void transition(boolean on) {
+		transitionOffset = on ? Gdx.graphics.getHeight() : 0;
+		transitionOn = on;
+	}
+
+	public boolean isTransitionComplete() {
+		return (transitionOn && transitionOffset <= 0) || (!transitionOn
+				&& transitionOffset >= Gdx.graphics.getHeight());
 	}
 }
