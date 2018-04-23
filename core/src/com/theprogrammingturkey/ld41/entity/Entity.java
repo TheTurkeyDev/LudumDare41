@@ -1,10 +1,11 @@
 package com.theprogrammingturkey.ld41.entity;
 
+import com.theprogrammingturkey.ld41.collision.Collidable;
 import com.theprogrammingturkey.ld41.levels.Layer;
 import com.theprogrammingturkey.ld41.rendering.Renderable;
 import com.theprogrammingturkey.volatiliajava.math.Vector2F;
 
-public abstract class Entity implements Renderable {
+public abstract class Entity implements Renderable, Collidable {
 	protected Layer layer;
 
 	protected Vector2F pos;
@@ -25,6 +26,16 @@ public abstract class Entity implements Renderable {
 
 	public int getY() {
 		return this.pos.getY().intValue();
+	}
+	
+	public void setX(float x) {
+		getBody().getPosition().x = x;
+		pos.setX(x);
+	}
+	
+	public void setY(float y) {
+		getBody().getPosition().y = y;
+		pos.setX(y);
 	}
 
 	public void update() {

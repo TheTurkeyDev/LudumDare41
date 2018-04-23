@@ -1,10 +1,16 @@
 package com.theprogrammingturkey.ld41.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.theprogrammingturkey.ld41.collision.Box2DUtil;
 import com.theprogrammingturkey.ld41.levels.tiles.Tile;
 import com.theprogrammingturkey.ld41.levels.tiles.TileManager;
 
@@ -32,6 +38,8 @@ public class LevelLoader {
 			level.setPlayerStartLayer(playerData.get("StartLayer").getAsInt());
 
 			JsonArray layersJson = json.getAsJsonArray("Layers");
+			int layerId = 0;
+			
 			for (JsonElement layerJson : layersJson) {
 				JsonArray tiles = layerJson.getAsJsonObject()
 						.getAsJsonArray("Tiles");
@@ -42,6 +50,14 @@ public class LevelLoader {
 					for (JsonElement tileID : columnJson.getAsJsonArray()) {
 						layer.setTile(TileManager.getNewTileFromID(
 								tileID.getAsInt(), x, y), x, y);
+
+						if (layer.getTile(x, y).isSolid()) {
+							layer.getTile(x, y)
+									.setBody(Box2DUtil.createBoxBody(
+											x * Tile.WIDTH, y * Tile.HEIGHT,
+											Tile.WIDTH, Tile.HEIGHT, BodyDef.BodyType.StaticBody,layerId));
+						}
+
 						y--;
 					}
 					x++;
@@ -51,6 +67,7 @@ public class LevelLoader {
 						.getAsJsonArray("Entities");
 
 				level.addLayer(layer);
+				layerId++;
 			}
 		}
 	}

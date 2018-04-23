@@ -6,7 +6,6 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.theprogrammingturkey.ld41.entity.Entity;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 import com.theprogrammingturkey.ld41.screens.GameScreen;
@@ -44,8 +43,8 @@ public class Level {
 		this.currentLayer = layer;
 	}
 
-	public void update() {
-		if (Gdx.input.isKeyPressed(Input.Keys.Q) && switchLayer == -1
+	public void update(float delta) {
+		if (Gdx.input.isKeyPressed(Input.Keys.Q)// && switchLayer == -1
 				&& currentLayer + 1 < layers.size()) {
 			switchLayer = currentLayer;
 			layers.get(switchLayer).transition(false);
@@ -54,36 +53,40 @@ public class Level {
 			layers.get(switchLayer).removeEntity(GameScreen.player);
 			layers.get(currentLayer).addEntity(GameScreen.player);
 			GameScreen.player.setLayer(layers.get(currentLayer));
-		} else if (Gdx.input.isKeyPressed(Input.Keys.W) && switchLayer == -1
+		} else if (Gdx.input.isKeyPressed(Input.Keys.W)// && switchLayer == -1
 				&& currentLayer > 0) {
 			switchLayer = currentLayer - 1;
 			layers.get(switchLayer).transition(true);
 			on = true;
 			layers.get(currentLayer).removeEntity(GameScreen.player);
 			layers.get(switchLayer).addEntity(GameScreen.player);
+			currentLayer--; // sfsdf
 			GameScreen.player.setLayer(layers.get(switchLayer));
 		}
 
 		for (Layer layer : layers) {
-			layer.update();
+			layer.update(delta);
 		}
 	}
 
 	public void render(float delta) {
 		// (currentLayer - i) / layers.size()
-		Renderer.batch.setColor(Color.WHITE);
-		for (int i = layers.size() - 1; i >= currentLayer; i--) {
-			layers.get(i).render(delta, false);
-		}
-		if (switchLayer != -1) {
-			Layer layer = layers.get(switchLayer);
-			layer.render(delta, true);
-			if (layer.isTransitionComplete()) {
-				if (on)
-					currentLayer = switchLayer;
-				switchLayer = -1;
-			}
-		}
+		layers.get(currentLayer).render(delta, false);
+		
+		Renderer.box2dDebugRender();
+		// Renderer.batch.setColor(Color.WHITE);
+		// for (int i = layers.size() - 1; i >= currentLayer; i--) {
+		// layers.get(i).render(delta, false);
+		// }
+		// if (switchLayer != -1) {
+		// Layer layer = layers.get(switchLayer);
+		// layer.render(delta, true);
+		// if (layer.isTransitionComplete()) {
+		// if (on)
+		// currentLayer = switchLayer;
+		// switchLayer = -1;
+		// }
+		// }
 	}
 
 	/**

@@ -18,7 +18,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		LevelManager.getCurrentLevel().update();
+		LevelManager.world.step(1/30.0f, 8, 3);
+		LevelManager.getCurrentLevel().update(delta);
 
 		Renderer.updateCameraScroll(player.getX());
 		LevelManager.getCurrentLevel().render(delta);

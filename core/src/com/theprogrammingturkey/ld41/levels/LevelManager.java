@@ -3,9 +3,16 @@ package com.theprogrammingturkey.ld41.levels;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+
 public class LevelManager {
 	private static Map<String, Level> levels = new HashMap<String, Level>();
 	private static String currentLevel = "";
+	
+	public static World world = new World(new Vector2(0,-200f), false);
+	
+	public static short[] layerMasks = {1,2,4,8,16};
 
 	/**
 	 * Register a level

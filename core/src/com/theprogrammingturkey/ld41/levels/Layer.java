@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.theprogrammingturkey.ld41.entity.Entity;
 import com.theprogrammingturkey.ld41.levels.tiles.AirTile;
 import com.theprogrammingturkey.ld41.levels.tiles.GrassTile;
 import com.theprogrammingturkey.ld41.levels.tiles.GroundTile;
 import com.theprogrammingturkey.ld41.levels.tiles.Tile;
-import com.theprogrammingturkey.ld41.levels.tiles.TileManager;
 import com.theprogrammingturkey.ld41.rendering.Renderer;
 
 public class Layer {
@@ -77,17 +78,17 @@ public class Layer {
 	}
 
 	public void render(float delta, boolean transition) {
-		transitionOffset = transitionOn
-				? transitionOffset - 5
-				: transitionOffset + 5;
+//		transitionOffset = transitionOn
+//				? transitionOffset - 5
+//				: transitionOffset + 5;
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				Tile t = tiles[x][y];
 				if (!(t instanceof AirTile)) {
-					if (transition) {
-						t.setPosition(x * Tile.WIDTH,
-								(y * Tile.HEIGHT) - this.transitionOffset);
-					}
+//					if (transition) {
+//						t.setPosition(x * Tile.WIDTH,
+//								(y * Tile.HEIGHT) - this.transitionOffset);
+//					}
 					Renderer.draw(t, delta);
 				}
 			}
@@ -98,10 +99,12 @@ public class Layer {
 		}
 	}
 
-	public void update() {
+	public void update(float delta) {
 		for (int i = entities.size() - 1; i >= 0; i--) {
 			Entity ent = entities.get(i);
 			ent.update();
+			Vector2 center = ent.getBody().getPosition();
+			ent.getSprite(delta).setCenter(center.x, center.y);
 			if (!ent.isAlive())
 				entities.remove(i);
 		}

@@ -5,18 +5,24 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.theprogrammingturkey.ld41.levels.LevelManager;
 
 public class Renderer {
 
 	public static SpriteBatch batch;
 	private static OrthographicCamera cam;
+	public static Box2DDebugRenderer debugRenderer;
+
 
 	public static void init() {
 		batch = new SpriteBatch();
 		cam = new OrthographicCamera();
+		debugRenderer = new Box2DDebugRenderer();
 
 		cam.setToOrtho(false, 320, 240);
 		cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
@@ -56,6 +62,10 @@ public class Renderer {
 	public static void resetCameraPosition() {
 		cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
 		cam.update();
+	}
+	
+	public static void box2dDebugRender() {
+		debugRenderer.render(LevelManager.world, cam.combined);
 	}
 
 	public static TextButton getCustomButton(String text) {
